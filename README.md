@@ -55,13 +55,13 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 4 - API Core del Chatbot 🚧
+**Fase Actual**: Fase 5 - Integración de Canales 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
 2. [x] **Fase 2**: Configurar Supabase ✅
 3. [x] **Fase 3**: Sistema multitenant ✅
-4. [ ] **Fase 4**: API core del chatbot
+4. [x] **Fase 4**: API core del chatbot ✅
 5. [ ] **Fase 5-8**: Integraciones de canales
 6. [ ] **Fase 9**: Lógica de IA
 7. [ ] **Fase 10**: Dashboard administrativo
@@ -69,13 +69,13 @@ pnpm dev
 9. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ Sistema multitenant completo con organizaciones
-- ✅ Context y hooks de React para organizaciones
-- ✅ Roles y permisos (Owner/Admin/Member)
-- ✅ Páginas de login, onboarding y dashboard
-- ✅ API para crear y gestionar organizaciones
-- ✅ Detección de organización multi-estrategia
-- ✅ Sistema de invitaciones (base)
+- ✅ Sistema completo de procesamiento de mensajes
+- ✅ API endpoints para webhook y mensajes
+- ✅ Sistema de bot flows (keyword/regex/template)
+- ✅ Cola de mensajes con retry exponencial
+- ✅ Gestión de conversaciones y mensajes
+- ✅ Procesador de mensajes entrantes/salientes
+- ✅ Documentación completa de API
 
 ## 📊 Límites del Plan Gratuito
 

@@ -40,6 +40,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sistema de invitaciones (estructura base)
 - Documentación completa de multitenant
 
+**Fase 4: API Core y Procesamiento de Mensajes (Completada)**
+- Sistema completo de gestión de mensajes y conversaciones
+- Procesador de mensajes entrantes con flujo completo
+- Bot flows con triggers (keyword/regex/always/fallback)
+- Generación de respuestas (text/template/ai placeholder)
+- Sistema de cola con retry exponencial
+- API endpoints: /api/webhook/receive, /api/messages, /api/conversations
+- Manejo de errores y reintentos automáticos
+- Variables en templates ({contact_name}, {date}, {time})
+- Documentación completa de API (messaging-api.md)
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)
