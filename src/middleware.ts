@@ -1,17 +1,18 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
 /**
  * Middleware para manejar:
- * - Autenticación con Supabase
+ * - Autenticación con Supabase (refresh session)
  * - Detección de organización (multitenant)
  * - Headers de seguridad
  */
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+  // Update Supabase session
+  const response = await updateSession(request);
 
-  // TODO: Implementar lógica de autenticación con Supabase
   // TODO: Implementar detección de organización
+  // TODO: Agregar header X-Organization-ID
 
   // Headers de seguridad básicos
   response.headers.set("X-Frame-Options", "DENY");
