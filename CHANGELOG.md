@@ -28,9 +28,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Middleware de autenticación con Supabase
 - Documentación completa de setup de Supabase
 
+**Fase 3: Sistema Multitenant (Completada)**
+- Gestión completa de organizaciones (crear, listar, actualizar)
+- Sistema de miembros con roles (Owner/Admin/Member)
+- Context React para estado global de organización
+- Hook useOrganization() para acceso a organización actual
+- Hook useOrganizationRole() para verificación de permisos
+- Detección de organización (subdomain/path/header/query)
+- API REST para organizaciones (/api/organizations)
+- Páginas: /auth/login, /onboarding, /dashboard
+- Sistema de invitaciones (estructura base)
+- Documentación completa de multitenant
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)
+- Dashboard redirige a onboarding si no hay organización
 
 ### Deprecated
 - N/A
