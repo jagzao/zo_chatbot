@@ -8,6 +8,7 @@ import { getChannel } from "@/lib/messages";
 import { sendWhatsAppMessage } from "@/lib/integrations/whatsapp";
 import { sendFacebookMessage } from "@/lib/integrations/facebook";
 import { sendInstagramMessage } from "@/lib/integrations/instagram";
+import { sendTikTokComment } from "@/lib/integrations/tiktok";
 
 /**
  * Process a single job from the queue
@@ -70,8 +71,20 @@ async function processSendMessage(payload: any): Promise<void> {
       break;
 
     case "tiktok":
-      // TODO: Implement in Phase 8
-      console.log("TikTok sending not yet implemented");
+      // TikTok requires videoId to reply to a comment
+      const videoId = payload.metadata?.videoId;
+      const parentCommentId = payload.metadata?.commentId;
+
+      if (!videoId) {
+        throw new Error("TikTok requires videoId to reply to comment");
+      }
+
+      await sendTikTokComment(
+        channel,
+        videoId,
+        content,
+        parentCommentId
+      );
       break;
 
     default:
