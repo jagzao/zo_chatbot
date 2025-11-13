@@ -168,6 +168,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Requisitos de App Review
   - Limitaciones de ventana de 24 horas
 
+**Fase 8: Integración TikTok con Comments API (Completada)**
+- Cliente completo de TikTok API v2 (api-client.ts)
+  - Responder a comentarios en videos (método principal de interacción)
+  - Obtener comentarios de videos para monitoreo
+  - Obtención de información de usuario (limitada vs otras plataformas)
+  - Obtención de información de videos
+  - Parsing de comentarios desde formato TikTok a formato interno
+  - Verificación de firma de webhooks para seguridad
+  - Soporte para OAuth 2.0 con gestión de tokens
+  - Soporte para comentarios padre (respuestas anidadas)
+- Capa de integración TikTok (integrations/tiktok/index.ts)
+  - sendTikTokComment(): Responde a comentarios (requiere videoId)
+  - getTikTokVideoComments(): Monitorea comentarios en videos
+  - getTikTokUserInfo(): Obtiene información básica de usuario
+  - getTikTokVideoInfo(): Obtiene metadata de video
+- Webhook handler (/api/webhook/tiktok/route.ts)
+  - Procesa eventos comment.created (nuevos comentarios en videos)
+  - Procesa eventos video.mention (menciones de cuenta)
+  - Validación de firma de webhook
+  - Endpoint GET para verificación de webhook por TikTok
+  - Almacena videoId y commentId en metadata para respuestas
+  - Manejo de contexto de comentarios públicos
+- Queue Worker actualizado (queue/worker.ts)
+  - Soporte agregado para respuestas a comentarios de TikTok
+  - Valida videoId requerido para respuestas de TikTok
+  - Routing a Comments API para canal tipo "tiktok"
+- API endpoints:
+  - POST /api/channels/tiktok/comment: Responder a un comentario
+  - GET /api/channels/tiktok/comments: Obtener comentarios de un video
+  - GET /api/webhook/tiktok: Verificación de webhook
+  - POST /api/webhook/tiktok: Recepción de eventos
+- Documentación completa (docs/tiktok-setup.md)
+  - Sección IMPORTANTE sobre limitaciones (no mensajes directos)
+  - Casos de uso válidos vs inválidos
+  - Guía para crear TikTok Business Account
+  - Crear app en TikTok for Developers
+  - Implementación de flujo OAuth 2.0
+  - Gestión de access token y refresh token (expira cada 24h)
+  - Configuración de webhooks
+  - Requisitos de App Review y proceso (1-4 semanas)
+  - Mejores prácticas para interacciones en comentarios públicos
+  - Guía de implementación de sistema de refresh de tokens
+  - Documentación de rate limiting y límites de API
+  - Tabla comparativa con otros canales
+- ⚠️ **LIMITACIONES IMPORTANTES**:
+  - NO soporta mensajes directos/privados
+  - Solo comentarios públicos en videos
+  - NO permite adjuntar media en comentarios
+  - NO tiene typing indicators
+  - NO se puede iniciar conversaciones
+  - Tokens expiran cada 24 horas (requiere refresh)
+  - Requiere App Review para producción
+  - Límite de caracteres: 150 por comentario
+  - Rate limit: ~100 requests/minuto
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)

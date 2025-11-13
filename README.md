@@ -55,7 +55,7 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 8 - Integración TikTok 🚧
+**Fase Actual**: Fase 9 - Lógica de IA 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
@@ -65,22 +65,22 @@ pnpm dev
 5. [x] **Fase 5**: Integración WhatsApp ✅
 6. [x] **Fase 6**: Integración Facebook Messenger ✅
 7. [x] **Fase 7**: Integración Instagram Direct ✅
-8. [ ] **Fase 8**: Integración TikTok
+8. [x] **Fase 8**: Integración TikTok ✅
 9. [ ] **Fase 9**: Lógica de IA
 10. [ ] **Fase 10**: Dashboard administrativo
 11. [ ] **Fase 11**: Sistema de webhooks y colas
 12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ **Instagram Direct Integration** con Graph API
-- ✅ Cliente completo de Instagram Graph API v18.0
-- ✅ Webhook handler para Instagram Direct Messages
-- ✅ Soporte para story mentions y story replies
-- ✅ Typing indicators y mark as seen
-- ✅ Instagram-Scoped ID (IGSID) handling
-- ✅ User profile con username
+- ✅ **TikTok Integration** con Comments API
+- ✅ Cliente completo de TikTok API v2
+- ✅ Webhook handler para comentarios y menciones
+- ✅ Respuestas a comentarios públicos en videos
+- ✅ OAuth 2.0 con token refresh
+- ✅ Limitaciones documentadas (no DM, solo comentarios)
 - ✅ API endpoints para testing
-- ✅ Documentación completa de setup de Instagram
+- ✅ Documentación completa de setup de TikTok
+- ⚠️ **Nota**: TikTok solo soporta comentarios públicos, NO mensajes directos
 
 ## 📊 Límites del Plan Gratuito
 
@@ -124,6 +124,10 @@ Ver [docs/facebook-setup.md](docs/facebook-setup.md)
 
 ### Configurar Instagram Direct
 Ver [docs/instagram-setup.md](docs/instagram-setup.md)
+
+### Configurar TikTok (Comentarios)
+Ver [docs/tiktok-setup.md](docs/tiktok-setup.md)
+⚠️ **Nota**: TikTok solo soporta comentarios públicos, NO mensajes directos
 
 ### Crear Flujos de Bot
 Ver [docs/bot-flows.md](docs/bot-flows.md)
