@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/types/database";
+import { getAIService } from "@/lib/ai/service";
 
 type BotFlow = Database["public"]["Tables"]["bot_flows"]["Row"];
 type Message = Database["public"]["Tables"]["messages"]["Row"];
@@ -116,9 +117,7 @@ async function generateResponse(
 
     case "ai":
       // AI-generated response
-      // This will be implemented in Phase 9
-      // For now, return a placeholder
-      return "Gracias por tu mensaje. Un agente te responderá pronto.";
+      return await generateAIResponse(flow, context);
 
     default:
       return flow.response_content;
@@ -145,6 +144,70 @@ function replaceTemplateVariables(
   result = result.replace(/{date}/g, new Date().toLocaleDateString("es-ES"));
 
   return result;
+}
+
+/**
+ * Generate AI response using Groq/Cloudflare AI
+ */
+async function generateAIResponse(
+  flow: BotFlow,
+  context: BotProcessingContext
+): Promise<string> {
+  try {
+    const aiService = getAIService();
+
+    if (!aiService.isAvailable()) {
+      // Fallback if AI is not available
+      return "Gracias por tu mensaje. Un agente te responderá pronto.";
+    }
+
+    // Build conversation history for context
+    const previousMessages = context.history
+      .slice(-5) // Last 5 messages for context
+      .map((msg) => ({
+        role: msg.direction === "inbound" ? "user" : "assistant" as "user" | "assistant",
+        content: msg.content,
+      }));
+
+    // Get organization info for context
+    const supabase = await createClient();
+    const { data: org } = await supabase
+      .from("organizations")
+      .select("name")
+      .eq("id", context.organizationId)
+      .single();
+
+    // Get conversation metadata
+    const { data: conversation } = await supabase
+      .from("conversations")
+      .select("contact_name, metadata")
+      .eq("id", context.conversationId)
+      .single();
+
+    // Use custom system prompt from flow if provided, otherwise use default
+    const systemPrompt = flow.response_content || undefined;
+
+    // Generate AI response
+    const result = await aiService.generateResponse(
+      context.message.content,
+      {
+        context: {
+          contactName: conversation?.contact_name,
+          organizationName: org?.name,
+          previousMessages,
+        },
+        systemPrompt,
+        temperature: 0.7,
+        maxTokens: 500,
+      }
+    );
+
+    return result.response;
+  } catch (error) {
+    console.error("Error generating AI response:", error);
+    // Fallback response
+    return "Disculpa, no pude procesar tu mensaje en este momento. ¿Podrías intentar de nuevo?";
+  }
 }
 
 /**
