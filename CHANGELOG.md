@@ -51,6 +51,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Variables en templates ({contact_name}, {date}, {time})
 - Documentación completa de API (messaging-api.md)
 
+**Fase 5: Integración WhatsApp con Evolution API (Completada)**
+- Cliente completo de Evolution API (evolution-client.ts)
+  - Envío de mensajes de texto y media (imagen, video, audio, documento)
+  - Verificación de estado de conexión
+  - Obtención de QR code para vinculación
+  - Configuración de webhooks
+  - Retry logic con exponential backoff
+- Capa de integración WhatsApp (integrations/whatsapp/index.ts)
+  - sendWhatsAppMessage(): Envía mensajes vía Evolution API
+  - checkWhatsAppConnection(): Monitorea estado de conexión
+  - getWhatsAppQRCode(): Obtiene QR para vinculación de dispositivo
+  - disconnectWhatsApp(): Cierra sesión de instancia
+  - setupWhatsAppWebhook(): Configura URL de webhook
+- Webhook handler (/api/webhook/whatsapp/route.ts)
+  - Procesa eventos messages.upsert de Evolution API
+  - Maneja eventos connection.update para monitoreo
+  - Validación de API key para seguridad
+  - Parsing automático de mensajes de WhatsApp
+  - Filtro de mensajes enviados (fromMe)
+- Queue Worker (queue/worker.ts)
+  - Procesa jobs pendientes de message_queue
+  - Enruta mensajes al canal apropiado
+  - Implementa WhatsApp sending (otros canales TODO)
+  - Retry logic con exponential backoff
+- API endpoints:
+  - POST /api/channels/whatsapp/send-test: Envío de mensaje de prueba
+  - GET /api/channels/whatsapp/status: Verificar estado de conexión
+  - POST /api/queue/process: Trigger manual de procesamiento de cola
+- Documentación completa (docs/whatsapp-setup.md)
+  - Guía de deployment en Railway/Render/Docker
+  - Instrucciones de configuración de webhook
+  - Troubleshooting y solución de problemas
+  - Advertencias legales sobre uso no oficial
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)

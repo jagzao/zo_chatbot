@@ -55,27 +55,31 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 5 - Integración de Canales 🚧
+**Fase Actual**: Fase 6 - Integración Facebook Messenger 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
 2. [x] **Fase 2**: Configurar Supabase ✅
 3. [x] **Fase 3**: Sistema multitenant ✅
 4. [x] **Fase 4**: API core del chatbot ✅
-5. [ ] **Fase 5-8**: Integraciones de canales
-6. [ ] **Fase 9**: Lógica de IA
-7. [ ] **Fase 10**: Dashboard administrativo
-8. [ ] **Fase 11**: Sistema de webhooks y colas
-9. [ ] **Fase 12**: Testing y deployment
+5. [x] **Fase 5**: Integración WhatsApp ✅
+6. [ ] **Fase 6**: Integración Facebook Messenger
+7. [ ] **Fase 7**: Integración Instagram Direct
+8. [ ] **Fase 8**: Integración TikTok
+9. [ ] **Fase 9**: Lógica de IA
+10. [ ] **Fase 10**: Dashboard administrativo
+11. [ ] **Fase 11**: Sistema de webhooks y colas
+12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ Sistema completo de procesamiento de mensajes
-- ✅ API endpoints para webhook y mensajes
-- ✅ Sistema de bot flows (keyword/regex/template)
-- ✅ Cola de mensajes con retry exponencial
-- ✅ Gestión de conversaciones y mensajes
-- ✅ Procesador de mensajes entrantes/salientes
-- ✅ Documentación completa de API
+- ✅ **WhatsApp Integration** con Evolution API
+- ✅ Cliente Evolution API con retry logic
+- ✅ Webhook handler para mensajes de WhatsApp
+- ✅ Queue worker para procesamiento asíncrono
+- ✅ Soporte para mensajes de texto y media (imagen/video/audio/documento)
+- ✅ Sistema de conexión con QR code
+- ✅ API endpoints para status y testing
+- ✅ Documentación completa de setup de WhatsApp
 
 ## 📊 Límites del Plan Gratuito
 
