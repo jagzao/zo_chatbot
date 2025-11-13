@@ -7,6 +7,7 @@ import { getPendingJobs, markJobAsProcessing, markJobAsCompleted, markJobAsFaile
 import { getChannel } from "@/lib/messages";
 import { sendWhatsAppMessage } from "@/lib/integrations/whatsapp";
 import { sendFacebookMessage } from "@/lib/integrations/facebook";
+import { sendInstagramMessage } from "@/lib/integrations/instagram";
 
 /**
  * Process a single job from the queue
@@ -59,8 +60,13 @@ async function processSendMessage(payload: any): Promise<void> {
       break;
 
     case "instagram":
-      // TODO: Implement in Phase 7
-      console.log("Instagram sending not yet implemented");
+      await sendInstagramMessage(
+        channel,
+        externalId,
+        content,
+        messageType || "text",
+        payload.metadata?.mediaUrl
+      );
       break;
 
     case "tiktok":
