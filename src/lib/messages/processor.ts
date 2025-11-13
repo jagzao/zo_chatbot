@@ -52,10 +52,21 @@ export async function processIncomingMessage(
       isBotResponse: false,
     });
 
-    // Step 3: Get conversation history for context
+    // Step 3: Check if conversation has human takeover active
+    // If a human agent is handling it, don't send bot responses
+    if (conversation.is_human_takeover) {
+      console.log(`Conversation ${conversation.id} has human takeover active. Bot will not respond.`);
+      return {
+        conversationId: conversation.id,
+        messageId: savedMessage.id,
+        shouldRespond: false,
+      };
+    }
+
+    // Step 4: Get conversation history for context
     const history = await getRecentMessages(conversation.id, 10);
 
-    // Step 4: Process with bot flows to determine response
+    // Step 5: Process with bot flows to determine response
     const botResponse = await processBotFlows({
       organizationId: message.organizationId,
       conversationId: conversation.id,
@@ -63,7 +74,7 @@ export async function processIncomingMessage(
       history,
     });
 
-    // Step 5: If we have a response, enqueue it for sending
+    // Step 6: If we have a response, enqueue it for sending
     if (botResponse.shouldRespond && botResponse.response) {
       // Save bot response to database
       const responseMessage = await createMessage({

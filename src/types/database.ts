@@ -116,6 +116,10 @@ export interface Database {
           contact_metadata: Json | null;
           status: "open" | "closed" | "archived";
           assigned_to: string | null;
+          is_human_takeover: boolean;
+          assigned_agent_id: string | null;
+          takeover_at: string | null;
+          last_agent_response_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -128,6 +132,10 @@ export interface Database {
           contact_metadata?: Json | null;
           status?: "open" | "closed" | "archived";
           assigned_to?: string | null;
+          is_human_takeover?: boolean;
+          assigned_agent_id?: string | null;
+          takeover_at?: string | null;
+          last_agent_response_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -140,6 +148,10 @@ export interface Database {
           contact_metadata?: Json | null;
           status?: "open" | "closed" | "archived";
           assigned_to?: string | null;
+          is_human_takeover?: boolean;
+          assigned_agent_id?: string | null;
+          takeover_at?: string | null;
+          last_agent_response_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
