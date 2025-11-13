@@ -124,6 +124,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Troubleshooting común
   - Limitaciones y consideraciones de producción
 
+**Fase 7: Integración Instagram Direct con Graph API (Completada)**
+- Cliente completo de Instagram Graph API (graph-client.ts)
+  - Envío de mensajes de texto y attachments (imagen, video, audio, file)
+  - Obtención de perfiles de usuario (nombre, username, foto de perfil)
+  - Typing indicators y mark as seen
+  - Verificación de firma de webhooks (compartida con Facebook)
+  - Parsing de mensajes desde formato Instagram a formato interno
+  - Soporte para postbacks, story mentions y story replies
+  - Manejo de Instagram-Scoped IDs (IGSID)
+- Capa de integración Instagram (integrations/instagram/index.ts)
+  - sendInstagramMessage(): Envía mensajes vía Graph API
+  - getInstagramUserProfile(): Obtiene información del usuario con username
+  - markInstagramMessageAsSeen(): Marca mensajes como leídos
+  - sendInstagramTypingIndicator(): Muestra indicador de escritura
+- Webhook handler (/api/webhook/instagram/route.ts)
+  - Procesa Instagram Direct Messages entrantes
+  - Maneja postback events (clicks en botones, ice breakers)
+  - Maneja delivery y read receipts
+  - Validación de firma de webhook con app secret
+  - Endpoint GET para verificación de webhook por Instagram
+  - Soporte para múltiples eventos por webhook
+  - Detección de story mentions y story replies
+- Queue Worker actualizado (queue/worker.ts)
+  - Soporte agregado para envío de mensajes de Instagram
+  - Routing a Graph API para canal tipo "instagram"
+- API endpoints:
+  - POST /api/channels/instagram/send-test: Envío de mensaje de prueba
+  - GET /api/channels/instagram/profile: Obtener perfil de usuario
+  - GET /api/webhook/instagram: Verificación de webhook
+  - POST /api/webhook/instagram: Recepción de eventos
+- Documentación completa (docs/instagram-setup.md)
+  - Guía para convertir a Instagram Business Account
+  - Vinculación con Facebook Page
+  - Generación de Page Access Token (compartido con Facebook)
+  - Configuración de webhooks y suscripciones
+  - Obtención de Instagram Business Account ID
+  - Guía de seguridad (firma de webhooks)
+  - Tipos de mensajes soportados
+  - Funciones avanzadas (ice breakers, story replies, quick replies)
+  - Tabla comparativa: Facebook Messenger vs Instagram Direct
+  - Troubleshooting específico de Instagram
+  - Requisitos de App Review
+  - Limitaciones de ventana de 24 horas
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)

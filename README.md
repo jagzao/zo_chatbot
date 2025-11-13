@@ -55,7 +55,7 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 7 - Integración Instagram Direct 🚧
+**Fase Actual**: Fase 8 - Integración TikTok 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
@@ -64,7 +64,7 @@ pnpm dev
 4. [x] **Fase 4**: API core del chatbot ✅
 5. [x] **Fase 5**: Integración WhatsApp ✅
 6. [x] **Fase 6**: Integración Facebook Messenger ✅
-7. [ ] **Fase 7**: Integración Instagram Direct
+7. [x] **Fase 7**: Integración Instagram Direct ✅
 8. [ ] **Fase 8**: Integración TikTok
 9. [ ] **Fase 9**: Lógica de IA
 10. [ ] **Fase 10**: Dashboard administrativo
@@ -72,15 +72,15 @@ pnpm dev
 12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ **Facebook Messenger Integration** con Graph API
-- ✅ Cliente completo de Facebook Graph API v18.0
-- ✅ Webhook handler para mensajes y postbacks
-- ✅ Soporte para texto, imagen, video, audio y archivos
+- ✅ **Instagram Direct Integration** con Graph API
+- ✅ Cliente completo de Instagram Graph API v18.0
+- ✅ Webhook handler para Instagram Direct Messages
+- ✅ Soporte para story mentions y story replies
 - ✅ Typing indicators y mark as seen
-- ✅ Verificación de firma de webhooks
-- ✅ User profile fetching
+- ✅ Instagram-Scoped ID (IGSID) handling
+- ✅ User profile con username
 - ✅ API endpoints para testing
-- ✅ Documentación completa de setup de Facebook
+- ✅ Documentación completa de setup de Instagram
 
 ## 📊 Límites del Plan Gratuito
 
