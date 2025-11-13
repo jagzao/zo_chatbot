@@ -55,7 +55,7 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 9 - Lógica de IA 🚧
+**Fase Actual**: Fase 10 - Dashboard Administrativo 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
@@ -66,21 +66,23 @@ pnpm dev
 6. [x] **Fase 6**: Integración Facebook Messenger ✅
 7. [x] **Fase 7**: Integración Instagram Direct ✅
 8. [x] **Fase 8**: Integración TikTok ✅
-9. [ ] **Fase 9**: Lógica de IA
+9. [x] **Fase 9**: Lógica de IA ✅
 10. [ ] **Fase 10**: Dashboard administrativo
 11. [ ] **Fase 11**: Sistema de webhooks y colas
 12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ **TikTok Integration** con Comments API
-- ✅ Cliente completo de TikTok API v2
-- ✅ Webhook handler para comentarios y menciones
-- ✅ Respuestas a comentarios públicos en videos
-- ✅ OAuth 2.0 con token refresh
-- ✅ Limitaciones documentadas (no DM, solo comentarios)
-- ✅ API endpoints para testing
-- ✅ Documentación completa de setup de TikTok
-- ⚠️ **Nota**: TikTok solo soporta comentarios públicos, NO mensajes directos
+- ✅ **AI/ML Integration** con Groq y Cloudflare AI
+- ✅ Cliente Groq (LLaMA 3.1 70B Versatile)
+- ✅ Cliente Cloudflare AI (LLaMA 3 8B) como fallback
+- ✅ Servicio de IA con fallback automático entre providers
+- ✅ Context-aware responses (historial de conversación)
+- ✅ Personalización por organización y contacto
+- ✅ System prompts personalizables
+- ✅ Integración con bot processor
+- ✅ API endpoint para testing de IA
+- ✅ Documentación completa de setup de IA
+- 🆓 **100% gratuito**: Groq (30 req/min) + Cloudflare (10K neurons/día)
 
 ## 📊 Límites del Plan Gratuito
 
@@ -128,6 +130,10 @@ Ver [docs/instagram-setup.md](docs/instagram-setup.md)
 ### Configurar TikTok (Comentarios)
 Ver [docs/tiktok-setup.md](docs/tiktok-setup.md)
 ⚠️ **Nota**: TikTok solo soporta comentarios públicos, NO mensajes directos
+
+### Configurar IA (Groq/Cloudflare AI)
+Ver [docs/ai-setup.md](docs/ai-setup.md)
+🤖 **Respuestas inteligentes** con LLaMA 3.1 70B (Groq) y fallback a Cloudflare AI
 
 ### Crear Flujos de Bot
 Ver [docs/bot-flows.md](docs/bot-flows.md)

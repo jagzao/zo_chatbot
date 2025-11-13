@@ -223,6 +223,73 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Límite de caracteres: 150 por comentario
   - Rate limit: ~100 requests/minuto
 
+**Fase 9: Integración AI/ML con Groq y Cloudflare AI (Completada)**
+- Cliente completo de Groq (groq-client.ts)
+  - API REST para Groq Cloud
+  - LLaMA 3.1 70B Versatile como modelo por defecto
+  - Soporte para múltiples modelos (70B, 8B, Mixtral, Gemma)
+  - Chat completion con historial de conversación
+  - Control de temperatura y tokens
+  - Inferencia ultra-rápida (300+ tokens/segundo)
+  - Free tier: 30 req/min, 14,400 req/día
+- Cliente completo de Cloudflare AI (cloudflare-client.ts)
+  - API REST para Cloudflare Workers AI
+  - LLaMA 3 8B Instruct como modelo por defecto
+  - Soporte para múltiples modelos (LLaMA 2, Mistral, OpenChat)
+  - Usado como fallback cuando Groq no está disponible
+  - Free tier: 10,000 neurons/día
+- Servicio de IA (service.ts)
+  - Capa de abstracción de alto nivel con múltiples providers
+  - Fallback automático entre Groq y Cloudflare
+  - Gestión de contexto de conversación
+  - Historial de mensajes previos (últimos 5 para contexto)
+  - Personalización con nombre de organización y contacto
+  - System prompts personalizados por conversación
+  - Configuración de temperatura y max tokens
+  - Soporte para preferencia de provider
+  - Patrón singleton para instancia única
+- Integración con Bot Processor
+  - Actualización de bot/processor.ts para usar IA con response_type="ai"
+  - Obtención de metadata de organización y conversación
+  - Construcción de historial de conversación para contexto
+  - Uso de system prompts personalizados desde bot flows
+  - Fallback graceful en caso de errores de IA
+  - Soporte para todos los canales (WhatsApp, Facebook, Instagram, TikTok)
+  - Adaptación automática a TikTok (límite de 150 caracteres)
+- API Endpoint (api/ai/generate/route.ts)
+  - POST /api/ai/generate: Probar respuestas de IA directamente
+  - GET /api/ai/generate: Verificar estado del servicio de IA
+  - Soporte para system prompts personalizados
+  - Inyección de contexto (nombre de contacto, org, historial)
+  - Selección de provider (groq/cloudflare)
+  - Control de temperatura y max tokens
+- Documentación completa (docs/ai-setup.md)
+  - Guía paso a paso para configurar cuenta Groq y API key
+  - Guía para configurar Cloudflare AI
+  - Configuración de ambos providers para redundancia
+  - Creación de bot flows con IA
+  - Ejemplos de system prompts para diferentes casos de uso:
+    - E-commerce/retail
+    - Soporte técnico
+    - Restaurante/hospitalidad
+  - Tablas comparativas de modelos
+  - Información de rate limits y free tier
+  - Guía de troubleshooting
+  - Mejores prácticas y recomendaciones
+  - Queries de monitoreo SQL
+- 🤖 **Capacidades de IA**:
+  - ✅ Comprensión de lenguaje natural
+  - ✅ Conciencia de contexto (historial de conversación)
+  - ✅ Personalización (nombre de contacto, nombre de org)
+  - ✅ Adaptación por canal (comentarios públicos de TikTok)
+  - ✅ Conversaciones multi-turno
+  - ✅ Comportamiento personalizado por organización
+  - ✅ Fallback graceful en caso de fallas
+- 🆓 **Límites Free Tier**:
+  - Groq: 30 req/min, 14,400 req/día (~43K mensajes/día)
+  - Cloudflare: 10,000 neurons/día (~300-500 mensajes/día)
+  - Combinados: Suficiente para chatbots pequeños-medianos
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)
