@@ -13,6 +13,7 @@
 - ✅ **Multicanal**: WhatsApp, Facebook Messenger, Instagram Direct, TikTok
 - ✅ **Multitenant**: Múltiples organizaciones en una sola instancia
 - ✅ **IA Integrada**: Respuestas inteligentes con Groq (LLaMA 3)
+- ✅ **Human Takeover**: Agentes pueden tomar control de conversaciones
 - ✅ **Dashboard Web**: Gestión completa de conversaciones y configuración
 - ✅ **Tiempo Real**: Actualizaciones instantáneas con Supabase Realtime
 - ✅ **Costo $0**: Arquitectura optimizada para free tiers
@@ -72,6 +73,12 @@ pnpm dev
 12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
+- ✅ **Human Takeover** (Transferencia a Agente Humano)
+- ✅ Sistema completo de takeover con API endpoints
+- ✅ Bot automáticamente deja de responder cuando agente toma control
+- ✅ Agentes pueden enviar respuestas manuales
+- ✅ Control de acceso y prevención de conflictos
+- ✅ Documentación completa de human takeover
 - ✅ **AI/ML Integration** con Groq y Cloudflare AI
 - ✅ Cliente Groq (LLaMA 3.1 70B Versatile)
 - ✅ Cliente Cloudflare AI (LLaMA 3 8B) como fallback
@@ -134,6 +141,10 @@ Ver [docs/tiktok-setup.md](docs/tiktok-setup.md)
 ### Configurar IA (Groq/Cloudflare AI)
 Ver [docs/ai-setup.md](docs/ai-setup.md)
 🤖 **Respuestas inteligentes** con LLaMA 3.1 70B (Groq) y fallback a Cloudflare AI
+
+### Human Takeover (Agentes Humanos)
+Ver [docs/human-takeover.md](docs/human-takeover.md)
+👤 **Control manual** de conversaciones por agentes humanos cuando sea necesario
 
 ### Crear Flujos de Bot
 Ver [docs/bot-flows.md](docs/bot-flows.md)

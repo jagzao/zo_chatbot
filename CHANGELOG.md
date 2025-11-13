@@ -290,6 +290,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Cloudflare: 10,000 neurons/día (~300-500 mensajes/día)
   - Combinados: Suficiente para chatbots pequeños-medianos
 
+**Human Takeover (Transferencia a Agente Humano) (Completada)**
+- Sistema completo de human takeover para conversaciones
+- Migración de base de datos (00004_human_takeover.sql)
+  - Campo is_human_takeover: Flag booleano para indicar control humano
+  - Campo assigned_agent_id: UUID del agente asignado
+  - Campo takeover_at: Timestamp de cuándo se tomó control
+  - Campo last_agent_response_at: Última respuesta del agente
+  - Índice para queries eficientes de conversaciones con takeover
+- Message Processor actualizado
+  - Verifica is_human_takeover antes de generar respuestas del bot
+  - Bot NO responde cuando conversación tiene takeover activo
+  - Early return previene cualquier automatización del bot
+- API endpoints completos:
+  - POST /api/conversations/:id/takeover: Tomar control de conversación
+  - DELETE /api/conversations/:id/takeover: Liberar conversación
+  - GET /api/conversations/:id/takeover: Consultar estado de takeover
+  - POST /api/conversations/:id/reply: Agente envía respuesta manual
+- Control de acceso y seguridad:
+  - Solo miembros de la organización pueden tomar control
+  - Prevención de conflictos (un agente a la vez)
+  - Solo agente asignado o admin puede liberar
+  - Validación de permisos RLS
+- Documentación completa (docs/human-takeover.md)
+  - Casos de uso y mejores prácticas
+  - Flujo completo de takeover
+  - Ejemplos de API con curl
+  - Queries SQL para monitoreo
+  - Guía de integración con dashboard
+  - Troubleshooting y solución de problemas
+  - Roadmap de mejoras futuras
+- ✅ **Flujo Completo**:
+  - Agente toma control → Bot deja de responder
+  - Agente envía mensajes manuales
+  - Mensajes se envían por canal apropiado
+  - Agente libera → Bot vuelve a responder automáticamente
+- 🎯 **Casos de Uso**:
+  - Consultas complejas que requieren intervención humana
+  - Problemas técnicos que el bot no puede resolver
+  - Ventas grandes o negociaciones especiales
+  - Usuario solicita explícitamente hablar con humano
+  - Escalación cuando bot no puede ayudar
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)
