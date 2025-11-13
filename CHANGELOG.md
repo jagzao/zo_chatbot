@@ -85,6 +85,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Troubleshooting y solución de problemas
   - Advertencias legales sobre uso no oficial
 
+**Fase 6: Integración Facebook Messenger con Graph API (Completada)**
+- Cliente completo de Facebook Graph API (graph-client.ts)
+  - Envío de mensajes de texto y attachments (imagen, video, audio, file)
+  - Obtención de perfiles de usuario (nombre, foto, locale, timezone)
+  - Typing indicators y mark as seen
+  - Verificación de firma de webhooks (x-hub-signature-256)
+  - Parsing de mensajes desde formato Facebook a formato interno
+  - Soporte para postbacks (clicks en botones)
+- Capa de integración Facebook (integrations/facebook/index.ts)
+  - sendFacebookMessage(): Envía mensajes vía Graph API
+  - getFacebookUserProfile(): Obtiene información del usuario
+  - markFacebookMessageAsSeen(): Marca mensajes como leídos
+  - sendFacebookTypingIndicator(): Muestra indicador de escritura
+- Webhook handler (/api/webhook/facebook/route.ts)
+  - Procesa mensajes entrantes de Messenger
+  - Maneja postback events (clicks en botones)
+  - Maneja delivery y read receipts
+  - Validación de firma de webhook con app secret
+  - Endpoint GET para verificación de webhook por Facebook
+  - Soporte para múltiples eventos por webhook
+- Queue Worker actualizado (queue/worker.ts)
+  - Soporte agregado para envío de mensajes de Facebook
+  - Routing a Graph API para canal tipo "facebook"
+- API endpoints:
+  - POST /api/channels/facebook/send-test: Envío de mensaje de prueba
+  - GET /api/channels/facebook/profile: Obtener perfil de usuario
+  - GET /api/webhook/facebook: Verificación de webhook
+  - POST /api/webhook/facebook: Recepción de eventos
+- Documentación completa (docs/facebook-setup.md)
+  - Guía para crear Facebook Page y App
+  - Generación de Page Access Token (temporal y permanente)
+  - Configuración de webhooks con verify token
+  - Suscripción de eventos y página
+  - Guía de seguridad (firma de webhooks)
+  - Tipos de mensajes soportados
+  - Funciones avanzadas (typing, mark seen, profiles)
+  - Troubleshooting común
+  - Limitaciones y consideraciones de producción
+
 ### Changed
 - Middleware actualizado para integrar autenticación con Supabase
 - Rutas protegidas configuradas (/dashboard requiere auth)

@@ -55,7 +55,7 @@ pnpm dev
 
 ## 📋 Estado del Proyecto
 
-**Fase Actual**: Fase 6 - Integración Facebook Messenger 🚧
+**Fase Actual**: Fase 7 - Integración Instagram Direct 🚧
 
 ### Progreso:
 1. [x] **Fase 1**: Configuración inicial del proyecto ✅
@@ -63,7 +63,7 @@ pnpm dev
 3. [x] **Fase 3**: Sistema multitenant ✅
 4. [x] **Fase 4**: API core del chatbot ✅
 5. [x] **Fase 5**: Integración WhatsApp ✅
-6. [ ] **Fase 6**: Integración Facebook Messenger
+6. [x] **Fase 6**: Integración Facebook Messenger ✅
 7. [ ] **Fase 7**: Integración Instagram Direct
 8. [ ] **Fase 8**: Integración TikTok
 9. [ ] **Fase 9**: Lógica de IA
@@ -72,14 +72,15 @@ pnpm dev
 12. [ ] **Fase 12**: Testing y deployment
 
 ### Completado Recientemente:
-- ✅ **WhatsApp Integration** con Evolution API
-- ✅ Cliente Evolution API con retry logic
-- ✅ Webhook handler para mensajes de WhatsApp
-- ✅ Queue worker para procesamiento asíncrono
-- ✅ Soporte para mensajes de texto y media (imagen/video/audio/documento)
-- ✅ Sistema de conexión con QR code
-- ✅ API endpoints para status y testing
-- ✅ Documentación completa de setup de WhatsApp
+- ✅ **Facebook Messenger Integration** con Graph API
+- ✅ Cliente completo de Facebook Graph API v18.0
+- ✅ Webhook handler para mensajes y postbacks
+- ✅ Soporte para texto, imagen, video, audio y archivos
+- ✅ Typing indicators y mark as seen
+- ✅ Verificación de firma de webhooks
+- ✅ User profile fetching
+- ✅ API endpoints para testing
+- ✅ Documentación completa de setup de Facebook
 
 ## 📊 Límites del Plan Gratuito
 
@@ -118,8 +119,11 @@ pnpm dev
 ### Conectar WhatsApp
 Ver [docs/whatsapp-setup.md](docs/whatsapp-setup.md)
 
-### Configurar Facebook/Instagram
-Ver [docs/meta-setup.md](docs/meta-setup.md)
+### Configurar Facebook Messenger
+Ver [docs/facebook-setup.md](docs/facebook-setup.md)
+
+### Configurar Instagram Direct
+Ver [docs/instagram-setup.md](docs/instagram-setup.md)
 
 ### Crear Flujos de Bot
 Ver [docs/bot-flows.md](docs/bot-flows.md)
