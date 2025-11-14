@@ -1,5 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/server";
 import type { Database } from "@/types/database";
+import { logger } from "@/lib/logger";
+import { moveToDLQ } from "./dlq";
 
 type QueueJob = Database["public"]["Tables"]["message_queue"]["Row"];
 
@@ -16,6 +18,11 @@ interface EnqueueJobParams {
 export async function enqueueJob(params: EnqueueJobParams): Promise<QueueJob> {
   const supabase = createAdminClient();
 
+  logger.debug("Enqueuing job", {
+    organizationId: params.organizationId,
+    action: params.payload.action,
+  });
+
   const { data, error } = await supabase
     .from("message_queue")
     .insert({
@@ -29,8 +36,21 @@ export async function enqueueJob(params: EnqueueJobParams): Promise<QueueJob> {
     .select()
     .single();
 
-  if (error) throw error;
-  return data as QueueJob;
+  if (error || !data) {
+    logger.error("Failed to enqueue job", {
+      organizationId: params.organizationId,
+    }, error);
+    throw error || new Error("No data returned");
+  }
+
+  const job = data as QueueJob;
+
+  logger.info("Job enqueued successfully", {
+    organizationId: params.organizationId,
+    jobId: job.id,
+  });
+
+  return job;
 }
 
 /**
@@ -85,7 +105,7 @@ export async function markJobAsCompleted(jobId: string): Promise<void> {
 }
 
 /**
- * Mark job as failed and handle retry logic
+ * Mark job as failed and handle retry logic with jitter
  */
 export async function markJobAsFailed(
   jobId: string,
@@ -100,26 +120,70 @@ export async function markJobAsFailed(
     .eq("id", jobId)
     .single();
 
-  if (!job) return;
+  if (!job) {
+    logger.warn("Job not found for marking as failed", { jobId });
+    return;
+  }
 
   const jobData = job as any;
   const retryCount = jobData.retry_count + 1;
 
+  logger.info("Job failed", {
+    jobId,
+    organizationId: jobData.organization_id,
+    retryCount,
+    maxRetries: jobData.max_retries,
+    error: errorMessage,
+  });
+
   if (retryCount >= jobData.max_retries) {
-    // Max retries reached, mark as failed permanently
-    await supabase
-      .from("message_queue")
-      .update({
-        status: "failed",
-        error: errorMessage,
-        retry_count: retryCount,
-        processed_at: new Date().toISOString(),
-      })
-      .eq("id", jobId);
+    // Max retries reached, move to DLQ
+    logger.warn("Job exceeded max retries, moving to DLQ", {
+      jobId,
+      organizationId: jobData.organization_id,
+      retryCount,
+    });
+
+    try {
+      // Move to Dead Letter Queue
+      await moveToDLQ(
+        jobId,
+        jobData.payload,
+        jobData.organization_id,
+        errorMessage,
+        retryCount
+      );
+
+      // Mark as failed permanently
+      await supabase
+        .from("message_queue")
+        .update({
+          status: "failed",
+          error: errorMessage,
+          retry_count: retryCount,
+          processed_at: new Date().toISOString(),
+        })
+        .eq("id", jobId);
+    } catch (dlqError) {
+      logger.error("Failed to move job to DLQ", {
+        jobId,
+        organizationId: jobData.organization_id,
+      }, dlqError as Error);
+    }
   } else {
-    // Schedule for retry with exponential backoff
-    const delaySeconds = Math.pow(2, retryCount) * 60; // 2^n minutes
-    const scheduledFor = new Date(Date.now() + delaySeconds * 1000);
+    // Schedule for retry with exponential backoff + jitter
+    const baseDelaySeconds = Math.pow(2, retryCount) * 60; // 2^n minutes
+    const jitter = Math.random() * 30; // 0-30 seconds of jitter
+    const totalDelaySeconds = baseDelaySeconds + jitter;
+    const scheduledFor = new Date(Date.now() + totalDelaySeconds * 1000);
+
+    logger.info("Scheduling job for retry", {
+      jobId,
+      organizationId: jobData.organization_id,
+      retryCount,
+      delaySeconds: Math.round(totalDelaySeconds),
+      scheduledFor: scheduledFor.toISOString(),
+    });
 
     await supabase
       .from("message_queue")

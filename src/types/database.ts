@@ -270,6 +270,38 @@ export interface Database {
           created_at?: string;
         };
       };
+      message_queue_dlq: {
+        Row: {
+          id: string;
+          organization_id: string;
+          original_job_id: string;
+          payload: Json;
+          error: string;
+          retry_count: number;
+          failed_at: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          organization_id: string;
+          original_job_id: string;
+          payload: Json;
+          error: string;
+          retry_count: number;
+          failed_at: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          organization_id?: string;
+          original_job_id?: string;
+          payload?: Json;
+          error?: string;
+          retry_count?: number;
+          failed_at?: string;
+          created_at?: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
