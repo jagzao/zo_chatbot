@@ -213,7 +213,7 @@ export default async function BotFlowsPage() {
               <div>
                 <p className="font-medium text-gray-900">Triggers por palabra clave</p>
                 <p className="text-sm text-gray-500">
-                  Usa "keyword" para responder cuando el usuario mencione palabras específicas
+                  Usa &quot;keyword&quot; para responder cuando el usuario mencione palabras específicas
                 </p>
               </div>
             </div>
@@ -225,7 +225,7 @@ export default async function BotFlowsPage() {
               <div>
                 <p className="font-medium text-gray-900">Respuestas con IA</p>
                 <p className="text-sm text-gray-500">
-                  Selecciona "ai" como tipo de respuesta para usar Groq/Cloudflare AI
+                  Selecciona &quot;ai&quot; como tipo de respuesta para usar Groq/Cloudflare AI
                 </p>
               </div>
             </div>
@@ -237,7 +237,7 @@ export default async function BotFlowsPage() {
               <div>
                 <p className="font-medium text-gray-900">Fallback</p>
                 <p className="text-sm text-gray-500">
-                  Crea un flow "fallback" para responder cuando ningún otro flow coincida
+                  Crea un flow &quot;fallback&quot; para responder cuando ningún otro flow coincida
                 </p>
               </div>
             </div>

@@ -4,6 +4,9 @@ import { getPendingJobs, getFailedJobs } from "@/lib/queue";
 import { getDLQJobs } from "@/lib/queue/dlq";
 import { metricsCollector } from "@/lib/queue/metrics";
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/monitoring/queue
  * Get queue statistics and health status

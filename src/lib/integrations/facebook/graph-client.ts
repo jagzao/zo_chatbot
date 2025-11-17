@@ -6,6 +6,8 @@
  * Documentation: https://developers.facebook.com/docs/messenger-platform
  */
 
+import crypto from "crypto";
+
 export interface GraphAPIConfig {
   pageAccessToken: string;
   appSecret?: string;
@@ -286,7 +288,6 @@ export class FacebookGraphClient {
     signature: string,
     appSecret: string
   ): boolean {
-    const crypto = require("crypto");
     const expectedSignature = crypto
       .createHmac("sha256", appSecret)
       .update(payload)

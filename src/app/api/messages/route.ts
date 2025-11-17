@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getConversationMessages } from "@/lib/messages";
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 /**
  * Get messages for a conversation
  * GET /api/messages?conversationId=uuid&limit=50&offset=0
